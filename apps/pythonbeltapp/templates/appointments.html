@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>What's Up</title>
+        <link rel="stylesheet" type="text/css" href="static/styles.css">
+    </head>
+<body>
+    <form class="form-style-9">
+        {% csrf_token %}
+        <a href="/logout">Logout</a>
+        <h3>Hello, {{request.session.name}}</h3>
+    </form>
+    <form class="form-style-9">
+        <table>
+            <tr>
+                <p>Here are your appointments for today, {% now "M d, Y"%}:</p>
+                <th>Tasks</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for task in my_tasks %}
+            <tr>
+                <td>{{task.task}}</a></td>
+                <td>{{task.time|date:"g:i A"}}</td>
+                <td>{{task.status}}</td>
+                <td><a href="appointments/{{task.id}}">Edit</td>
+                <td><a href="delete_from_list/{{task.id}}">Delete</td>      
+            </tr>
+            {% endfor %}
+            <!-- {% for other in other_appointments %}
+            <tr>
+                    <td><a href="/wish_items/{{added_items.id}}">{{other.item}}</a></td>
+                    <td>{{other.name}}</td>
+                    <td>{{other.created_at}}</td>
+                    <td><a href="delete_from_list/{{added_items.id}}">Delete</td>        
+
+            </tr>
+            {% endfor %} -->
+        </table>
+        <hr>
+        <table>
+
+            <tr>
+                <p>Your other appointments:</p>
+                <th>Tasks</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            <tr>
+                {% for others in other_appointments %}
+                <tr>
+                    <td>{{others.task}}</a></td>
+                    <td>{{others.taskdate|date:"F j"}}</td>
+                    <td>{{others.time|date:"g:i A"}}</td>
+                </tr>
+                {% endfor %}
+            </tr>
+        </table>
+    </form>
+    <form action="/add" method="POST" class="form-style-9">
+        {% csrf_token %}
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>  
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <ul>
+            <h2>Add Appointment</h2>
+            <li>
+                <p>Date</p>  
+                <input type="date" name="taskdate" class="field-style align-left">
+            </li>
+            <li>
+                <p>Time</p>
+                <input type="time" name="time" class="field-style align-left">
+            </li>
+            <li>
+                <input type="text" name="task" class="field-style field-split" placeholder="Task">
+            </li>
+            <li>
+            <input type="submit" class="field-style align-left" value="Add">
+            </li>
+        </ul>
+    </form>    
+</body>
+</html>

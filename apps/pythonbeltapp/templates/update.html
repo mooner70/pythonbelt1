@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Appointment</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+</head>
+<body>
+  <a href="/appointments">Dashboard</a>
+  <a href="/logout">Logout</a>
+  <form action="/save_appointments/{{task_id.id}}" method="POST" class="form-style-9">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <ul>
+      <li>
+        <input type="text" name="task" class="field-style field-split align-left" placeholder="Task" value="{{task}}">
+      </li>
+      <li>
+        <select name="status">
+          <option value="Pending">Pending</option>
+          <option value="Missed">Missed</option>
+          <option value="Done">Done</option>
+        </select>
+      </li>
+      <p>Date:</p>
+      <li>
+        <input type="date" name="taskdate" class="field-style align-left" value="{{taskdate}}">
+      </li>
+      <p>Time:</p>
+      <li>
+        <input type="time" name="time" class="field-style align-left" value="{{time}}">
+      </li>
+      <li>
+        <input type="submit" class="field-style align-left" value="Update">
+      </li>
+    </ul>
+  </form>
+
+</body>
+</html>

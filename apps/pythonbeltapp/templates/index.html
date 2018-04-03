@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login/Registration</title>
+    <link rel="stylesheet" type="text/css" href="static/styles.css">
+</head>
+<body>
+    <form action="/registration" method="POST" class="form-style-9">
+    {% csrf_token %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <ul>
+      <h2>Welcome</h2>
+      <p>Rsgister</p>
+      <li>
+          <input type="text" name="name" class="field-style field-split align-left" placeholder="Name">
+          <input type="text" name="email" class="field-style field-split align-right" placeholder="Email">
+      </li>
+      <p>*Password should be at least 8 characters</p>
+      <li>
+        <input type="password" name="password" class="field-style field-split align-left" placeholder="Password">
+        <input type="password" name="confirm" class="field-style field-split align-right" placeholder="Confirm PW"> 
+      </li>
+      <p>Date of Birth:</p>
+      <li>
+        <input type="date" name="birthday" class="field-style align-left">
+      </li>
+      <li>
+      <input type="submit" class="field-style align-left" value="Register">
+      </li>
+    </ul>
+  </form>
+  <form action="/login" method="POST" class="form-style-9">
+    {% csrf_token %}
+      <ul>
+        <p>Login</p>
+        <li>
+          <input type="text" name="email" class="field-style field-split align-left" placeholder="Email">
+          <input type="password" name="password" class="field-style field-split align-right" placeholder="Password"> 
+        </li>
+        <li>
+          <input type="submit" class="field-style align-left" value="Login">
+        </li>
+      </ul>
+  </form>    
+</body>
+</html>
